@@ -5,8 +5,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/go-git/go-git/plumbing/object"
-	"github.com/go-git/go-git/v5"
+	"gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 const daysInLastSixMonths = 183
@@ -17,7 +17,7 @@ type column []int
 
 func stats(email string) {
 	commits := processRepositories(email)
-	printCommitStats(commits)
+	printCommitsStats(commits)
 }
 
 func processRepositories(email string) map[int]int {
@@ -79,7 +79,7 @@ func calcOffset() int {
 	return offset
 }
 
-func printCommitStats(commits map[int]int) {
+func printCommitsStats(commits map[int]int) {
 	keys := sortMapIntoSlice(commits)
 	cols := buildCols(keys, commits)
 	printCells(cols)
@@ -118,12 +118,13 @@ func buildCols(keys []int, commits map[int]int) map[int]column {
 
 func printCells(cols map[int]column) {
 	printMonths()
-	for j := 6; j > 0; j-- {
+	for j := 6; j >= 0; j-- {
 		for i := weeksInLastSixMonths + 1; i >= 0; i-- {
 			if i == weeksInLastSixMonths+1 {
 				printDayCol(j)
 			}
 			if col, ok := cols[i]; ok {
+
 				if i == 0 && j == calcOffset()-1 {
 					printCell(col[j], true)
 					continue
@@ -135,10 +136,8 @@ func printCells(cols map[int]column) {
 				}
 			}
 			printCell(0, false)
-
 		}
 		fmt.Printf("\n")
-
 	}
 }
 
