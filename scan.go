@@ -47,7 +47,7 @@ func parseFileLinesToSlice(filepath string) []string {
 	var lines []string
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		lines := append(lines, scanner.Text())
+		lines = append(lines, scanner.Text())
 	}
 
 	if err := scanner.Err(); err != nil {
