@@ -9,3 +9,5 @@ Run `go install` to make the command `gitlocalstats` working
 - `gitlocalstats -email your@email.com` generates a graph that represents the last 6 month of activity for the passed email.
 
 ## Demonstration
+
+<img src ="https://i.ibb.co/MgbWrXG/demo.png">
